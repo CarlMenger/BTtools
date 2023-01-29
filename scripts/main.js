@@ -60,18 +60,18 @@ $("#btCreateTestButton").click(() => {
 	createTestButton.click()
 
 	// Print hell
-	console.log(`tableSuffix: ${tableSuffix}`);
-	console.log(`owner: ${owner}`);
-	console.log(`system: ${system}`);
-	console.log(`creditPhase: ${creditPhase}`);
-	console.log(`suffixCheckBoxes: ${suffixCheckBoxes}`);
-	console.log(`country: ${country}`);
-	console.log(`testName: ${testName}`);
-	console.log(`tableVector: ${tableVector}`);
-	console.log(`tableOut: ${tableOut}`);
-	console.log(`tableResult: ${tableResult}`);
-	console.log(`addSuffixButton: ${addSuffixButton}`);
-	console.log(`suffixInputs: ${suffixInputs}`);
-	console.log(`useSuffixesCheckBox: ${useSuffixesCheckBox}`);
-	console.log(`createTestButton: ${createTestButton}`);
+	console.log(`tableSuffix: ${tableSuffix} Type: ${typeof tableSuffix}`);
+	console.log(`owner: ${owner} Type: ${typeof owner}`);
+	console.log(`system: ${system} Type: ${typeof system}`);
+	console.log(`creditPhase: ${creditPhase} Type: ${typeof creditPhase}`);
+	console.log(`suffixCheckBoxes: ${suffixCheckBoxes} Type: ${typeof suffixCheckBoxes}`);
+	console.log(`country: ${country} Type: ${typeof country}`);
+	console.log(`testName: ${testName} Type: ${typeof testName}`);
+	console.log(`tableVector: ${tableVector} Type: ${typeof tableVector}`);
+	console.log(`tableOut: ${tableOut} Type: ${typeof tableOut}`);
+	console.log(`tableResult: ${tableResult} Type: ${typeof tableResult}`);
+	console.log(`addSuffixButton: ${addSuffixButton} Type: ${typeof addSuffixButton}`);
+	console.log(`suffixInputs: ${suffixInputs} Type: ${typeof suffixInputs}`);
+	console.log(`useSuffixesCheckBox: ${useSuffixesCheckBox} Type: ${typeof useSuffixesCheckBox}`);
+	console.log(`createTestButton: ${createTestButton} Type: ${typeof createTestButton}`);
 })
