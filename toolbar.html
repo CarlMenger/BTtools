@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="scripts/jquery-3.6.3.js"></script>
+</head>
+<body>
+
+	<form>
+		<div>
+			<label for="btTicketSuffix"> </label>
+			<input type="text" placeholder="ticket name" id="btTicketSuffix" required="">
+		</div>
+
+		<div>
+			<label for="btOwner">Owner</label>
+			<input type="text" name="owner" id="btOwner" value="MB" required="">
+		</div>
+
+		<div>
+			<label for="btSystem">System</label>
+			<input list="systems" name="system" id="btSystem" placeholder="EKIS">
+			<datalist id="systems">
+				<option value="EKIS">
+				<option value="HOMER">
+				<option value="KAMALI">
+			</datalist>
+		</div>
+
+		<div>
+			<label for="btCreditType">Credit Type</label>
+			<input list="creditTypes" name="creditType" id="btCreditType" placeholder="CB">
+			<datalist id="creditTypes">
+				<option value="PRELIM">
+				<option value="PRE">
+				<option value="CB">
+				<option value="KEY">
+				<option value="POST">
+			</datalist>
+		</div>
+
+
+		<div>
+			<input type="checkbox" id="comparison1" name="comparison1" class="btCheckbox" value=".workflowCode" checked>
+			<label for="comparison1" class="btCheckboxLabel"> .workflowCode</label><br>
+			
+			<input type="checkbox" id="comparison2" name="comparison2" class="btCheckbox" value=".koCode" checked>
+			<label for="comparison2" class="btCheckboxLabel"> .koCode</label><br>
+			
+			<input type="checkbox" id="comparison3" name="comparison3" class="btCheckbox" value=".rejectReason" checked>
+			<label for="comparison3" class="btCheckboxLabel"> .rejectReason</label><br>
+		</div>
+
+		<div>
+			<input class="enter" type="submit" value="Create Test" id="btCreateTestButton"/>
+		</div>
+	</form>
+
+	<script src="./scripts/main.js" type="module"></script>
+
+	</body>
+</html>
+
