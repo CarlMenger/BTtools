@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="scripts/jquery-3.6.3.js"></script>
+    <script src="../scripts/jquery-3.6.3.js"></script>
 </head>
 <body>
 
@@ -27,9 +27,9 @@
 		</div>
 
 		<div>
-			<label for="btCreditType">Credit Type</label>
-			<input list="creditTypes" name="creditType" id="btCreditType" placeholder="CB">
-			<datalist id="creditTypes">
+			<label for="btCreditPhase">Credit Phase</label>
+			<input list="creditPhases" name="creditPhase" id="btCreditPhase" placeholder="CB">
+			<datalist id="creditPhases">
 				<option value="PRELIM">
 				<option value="PRE">
 				<option value="CB">
@@ -40,14 +40,14 @@
 
 
 		<div>
-			<input type="checkbox" id="comparison1" name="comparison1" class="btCheckbox" value=".workflowCode" checked>
-			<label for="comparison1" class="btCheckboxLabel"> .workflowCode</label><br>
+			<input type="checkbox" id="comparison1" name="comparison1" class="btCheckbox" value=".workflowCode">
+			<label for="comparison1" class="btCheckboxLabel" id = "comparison1Label"> .workflowCode</label><br>
 			
-			<input type="checkbox" id="comparison2" name="comparison2" class="btCheckbox" value=".koCode" checked>
-			<label for="comparison2" class="btCheckboxLabel"> .koCode</label><br>
+			<input type="checkbox" id="comparison2" name="comparison2" class="btCheckbox" value=".koCode">
+			<label for="comparison2" class="btCheckboxLabel" id = "comparison2Label"> .koCode</label><br>
 			
-			<input type="checkbox" id="comparison3" name="comparison3" class="btCheckbox" value=".rejectReason" checked>
-			<label for="comparison3" class="btCheckboxLabel"> .rejectReason</label><br>
+			<input type="checkbox" id="comparison3" name="comparison3" class="btCheckbox" value=".rejectReason">
+			<label for="comparison3" class="btCheckboxLabel" id = "comparison3Label"> .rejectReason</label><br>
 		</div>
 
 		<div>
@@ -55,7 +55,7 @@
 		</div>
 	</form>
 
-	<script src="./scripts/main.js" type="module"></script>
+	<script src="popup.js" type="module"></script>
 
 	</body>
 </html>
