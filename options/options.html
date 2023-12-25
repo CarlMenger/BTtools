@@ -4,27 +4,37 @@
 <head>
   <title>Extension Options</title>
   <script src="../scripts/jquery-3.6.3.js"></script>
+  <script src="../scripts/common.js"></script>
 </head>
 
 <body>
   <h1>Set default values</h1>
 
   <form id="optionsForm">
-    <div>
-      <label for="owner">Owner:</label>
-      <input type="text" id="owner" name="owner">
+  
+   <div>
+      <label for="dbId">DB_id:</label>
+      <input type="text" id="dbId" name="dbId">
     </div>
-
-    <div>
-      <label for="system">System:</label>
-      <input type="text" id="system" name="system">
+    <hr>
+        <div>
+      <label for="inputTable">Input Table:</label>
+      <input type="text" id="inputTable" name="inputTable">
     </div>
-
     <div>
-      <label for="creditPhase">Credit Phase:</label>
-      <input type="text" id="creditPhase" name="creditPhase">
+      <label for="outputTable">Output Table:</label>
+      <input type="text" id="outputTable" name="outputTable">
     </div>
-
+    <div>
+      <label for="referenceTable">Reference Table:</label>
+      <input type="text" id="referenceTable" name="referenceTable">
+    </div>
+    <div>
+      <label for="relativePos">Relative Position:</label>
+      <input type="number" id="relativePos" name="relativePos">
+    </div>
+    
+    <hr>
     <div>
       <input type="checkbox" id="comparison1" name="comparison1">
       <label for="comparison1">Comparison 1</label><br>
@@ -35,27 +45,47 @@
       <input type="checkbox" id="comparison3" name="comparison3">
       <label for="comparison3">Comparison 3</label><br>
     </div>
+    
     <div>
       <label for="comparison1Value">Comparison 1 Value</label>
       <input type="text" id="comparison1Value">
-   </div>
-   
-   <div>
-      <label for="comparison2Value">Comparison 2 Value</label>
-      <input type="text" id="comparison2Value">
-   </div>
-   
-   <div>
-      <label for="comparison3Value">Comparison 3 Value</label>
-      <input type="text" id="comparison3Value">
-   </div>
+    </div>
     
     <div>
+      <label for="comparison2Value">Comparison 2 Value</label>
+      <input type="text" id="comparison2Value">
+    </div>
+    
+    <div>
+      <label for="comparison3Value">Comparison 3 Value</label>
+      <input type="text" id="comparison3Value">
+    </div>
+    
+    <hr>
+    
+    <div>
+      <label for="numberOfParts">Number of Parts:</label>
+      <input type="number" id="numberOfParts" name="numberOfParts" min="1">
+    </div>
+
+    <hr>
+    <div id="tableParts">
+      <!-- Part Name and Value inputs will be dynamically added here -->
+    </div>
+
+   
+  <hr>
+    <div>
       <input type="submit" value="Save">
+
+      <button type="button" id="previewButton">Preview</button>
+      <button type="button" id="clearButton">Clear</button>
     </div>
   </form>
+  <hr>
+  <div id="previewContainer"></div>
 
-  <script src="options.js"> </script>
+  <script src="options.js"></script>
 </body>
 
 </html>

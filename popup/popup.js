@@ -1,72 +1,85 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function () {
+  loadSettings();
 
-	console.log("[Info] popup.js was loaded!");
-
-    // Retrieve values from storage
-	let owner = localStorage.getItem('owner') || 'MB';
-	let system = localStorage.getItem('system') || 'EKIS';
-	let creditPhase = localStorage.getItem('creditPhase') || 'CB';
-    let comparison1Checked = localStorage.getItem('comparison1Checked');
-    let comparison2Checked = localStorage.getItem('comparison2Checked');
-    let comparison3Checked = localStorage.getItem('comparison3Checked');
-    let comparison1Value = localStorage.getItem('comparison1Value') || '';
-    let comparison2Value = localStorage.getItem('comparison2Value') || '';
-    let comparison3Value = localStorage.getItem('comparison3Value') || '';
-
-	// Update UI elements with retrieved values
-	$("#btOwner").val(owner);
-    $("#btSystem").val(system);
-    $("#btCreditPhase").val(creditPhase);
-	
-	// Set checkbox boxes
-	$("#comparison1")[0].checked = comparison1Checked === 'true';
-    $("#comparison2")[0].checked = comparison2Checked === 'true';
-    $("#comparison3")[0].checked = comparison3Checked === 'true';
-
-	// Set HTML values for checkboxes, this one is actually sent to webPage
-	$("#comparison1").val(comparison1Value);
-	$("#comparison2").val(comparison2Value);
-	$("#comparison3").val(comparison3Value);
-
-	console.log("[After] comparison3.checked: " + document.getElementById('comparison3').checked);
-	// Set labels for checkboxes 
-	$("#comparison1Label").html(comparison1Value || '');
-	$("#comparison2Label").html(comparison2Value || '');
-	$("#comparison3Label").html(comparison3Value || '');
-
-	console.log('Retrieved values:', owner, system, creditPhase, comparison1Checked, comparison2Checked, comparison3Checked);
-
-	$("#btCreateTestButton").click(() => {
-		console.log("[Info] Button was pressed!");
-
-		// Plain JS, because original piece of code was like that.
-		var elements = document.querySelectorAll(".btCheckbox[type='checkbox']:checked");
-		var suffixCheckBoxes = Array.from(elements).map(function(checkbox) {
-		  return checkbox.value;
-		});
-
-		// get values from extension popup 
-		const data = {
-			action				: "createTest",	// action name, runtime.onMessage listener is listening to this exact string so dont change
-			tableNameSuffix		: $("#btTicketSuffix").val(), // .first(),
-			owner 				: $("#btOwner").val(),
-			system 				: $("#btSystem").val() || "EKIS",
-			creditPhase 		: $("#btCreditPhase").val() || "CB",
-			suffixCheckBoxes	: suffixCheckBoxes, 
-		  };
-		
-		// localStorage.setItem('comparison1Value', data.comparison1Value);
-        // localStorage.setItem('comparison2Value', data.comparison2Value);
-        // localStorage.setItem('comparison3Value', data.comparison3Value);
-
-		// for (var i = 0; i < data.suffixCheckBoxes.length; i++) {
-        // 	console.log(`data.suffixCheckBoxes[i]: ${data.suffixCheckBoxes[i]} Type ${typeof data.suffixCheckBoxes[i]} `)
-        // }
-
-		// Send the data to the content script
-		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, data);
-			console.log("msg sent");
-		});
-	})
+  // Handle button click to create a test
+  document
+    .getElementById("createTestButton")
+    .addEventListener("click", function () {
+      createTest();
+    });
 });
+
+function loadValueFromLocalStorage(key, defaultValue = '') {
+	return localStorage.getItem(key) || defaultValue;
+  }
+  
+function loadBooleanFromLocalStorage(key, defaultValue = false) {
+	return localStorage.getItem(key) === 'true' || defaultValue;
+}
+
+function loadSettings() {
+	// Load saved settings or use defaults from localStorage
+
+	console.log(loadBooleanFromLocalStorage('comparison1Checked'));
+	console.log(loadBooleanFromLocalStorage('comparison2Checked'));
+	console.log(loadBooleanFromLocalStorage('comparison3Checked'));
+
+	$('#numberOfParts').val(loadValueFromLocalStorage('numberOfParts', '4'));
+	updatePartInputs();
+  
+	$('#dbId').val(loadValueFromLocalStorage('dbId'));
+  
+	$('#inputTable').val(loadValueFromLocalStorage('inputTable'));
+	$('#outputTable').val(loadValueFromLocalStorage('outputTable'));
+	$('#referenceTable').val(loadValueFromLocalStorage('referenceTable'));
+	$('#relativePos').val(loadValueFromLocalStorage('relativePos'));
+  
+	// $('#comparison1').prop('checked', loadBooleanFromLocalStorage('comparison1'));
+	// $('#comparison2').prop('checked', loadBooleanFromLocalStorage('comparison2'));
+	// $('#comparison3').prop('checked', loadBooleanFromLocalStorage('comparison3'));
+
+	$("#comparison1")[0].checked = loadBooleanFromLocalStorage('comparison1Checked');
+    $("#comparison2")[0].checked = loadBooleanFromLocalStorage('comparison2Checked');
+    $("#comparison3")[0].checked = loadBooleanFromLocalStorage('comparison3Checked');
+
+	$('#comparison1Value').val(loadValueFromLocalStorage('comparison1Value'));
+	$('#comparison2Value').val(loadValueFromLocalStorage('comparison2Value'));
+	$('#comparison3Value').val(loadValueFromLocalStorage('comparison3Value'));
+}
+
+function createTest() {
+  // Extract data from the popup
+  const dbId = document.getElementById("dbId").value || "";
+  const inputTable = document.getElementById("inputTable").value || "";
+  const outputTable = document.getElementById("outputTable").value || "";
+  const referenceTable = document.getElementById("referenceTable").value || "";
+  const relativePos = document.getElementById("relativePos").value || 0;
+
+  const comparison1 = document.getElementById("comparison1").checked;
+  const comparison2 = document.getElementById("comparison2").checked;
+  const comparison3 = document.getElementById("comparison3").checked;
+
+  const comparison1Value = document.getElementById("comparison1Value").value || "";
+  const comparison2Value = document.getElementById("comparison2Value").value || "";
+  const comparison3Value = document.getElementById("comparison3Value").value || "";
+
+  // Message data to be sent to content script
+  const message = {
+    action: "createTest",
+    dbId,
+    inputTable,
+    outputTable,
+    referenceTable,
+    relativePos,
+    comparisons: [
+      { checked: comparison1, value: comparison1Value },
+      { checked: comparison2, value: comparison2Value },
+      { checked: comparison3, value: comparison3Value },
+    ],
+  };
+
+  // Send the message to the content script
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, message);
+  });
+}

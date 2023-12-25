@@ -60,7 +60,9 @@ function fillTest(message) {
     // Set the text content of elements
     dispatchValueIntoElement(testNameInput, testName);
     dispatchValueIntoElement(tableVector, tableNameVector);
-    dispatchValueIntoElement(tableOut, tableNameOut);
+    if (sidebarTab == 'simulations') {dispatchValueIntoElement(tableOut, tableNameOut);}
+    else if (sidebarTab == 'master') {dispatchValueIntoElement(tableOut, tableNameResult);}
+
     
     if (sidebarTab == 'simulations') {
         // Click the "Add suffix" button the desired number of times

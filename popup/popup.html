@@ -1,62 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <script src="../scripts/jquery-3.6.3.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+    }
+  </style>
+<script src="../scripts/jquery-3.6.3.js"></script>
+<script src="../scripts/common.js"></script>
 </head>
+
 <body>
+  <h1>Popup</h1>
 
-	<form>
-		<div>
-			<label for="btTicketSuffix"> </label>
-			<input type="text" placeholder="ticket name" id="btTicketSuffix" required="">
-		</div>
+  <div>
+    <label for="dbId">DB_id:</label>
+    <input type="text" id="dbId" name="dbId">
+  </div>
+  <hr>
+  <div>
+    <label for="inputTable">Input Table:</label>
+    <input type="text" id="inputTable" name="inputTable">
+  </div>
+  <div>
+    <label for="outputTable">Output Table:</label>
+    <input type="text" id="outputTable" name="outputTable">
+  </div>
+  <div>
+    <label for="referenceTable">Reference Table:</label>
+    <input type="text" id="referenceTable" name="referenceTable">
+  </div>
+  <div>
+    <label for="relativePos">Relative Position:</label>
+    <input type="number" id="relativePos" name="relativePos">
+  </div>
+  <hr>
+  <div>
+    <input type="checkbox" id="comparison1" name="comparison1">
+    <label for="comparison1">Comparison 1</label><br>
 
-		<div>
-			<label for="btOwner">Owner</label>
-			<input type="text" name="owner" id="btOwner" value="MB" required="">
-		</div>
+    <input type="checkbox" id="comparison2" name="comparison2">
+    <label for="comparison2">Comparison 2</label><br>
 
-		<div>
-			<label for="btSystem">System</label>
-			<input list="systems" name="system" id="btSystem" placeholder="EKIS">
-			<datalist id="systems">
-				<option value="EKIS">
-				<option value="HOMER">
-				<option value="KAMALI">
-			</datalist>
-		</div>
+    <input type="checkbox" id="comparison3" name="comparison3">
+    <label for="comparison3">Comparison 3</label><br>
+  </div>
 
-		<div>
-			<label for="btCreditPhase">Credit Phase</label>
-			<input list="creditPhases" name="creditPhase" id="btCreditPhase" placeholder="CB">
-			<datalist id="creditPhases">
-				<option value="PRELIM">
-				<option value="PRE">
-				<option value="CB">
-				<option value="KEY">
-				<option value="POST">
-			</datalist>
-		</div>
+  <div>
+    <label for="comparison1Value">Comparison 1 Value</label>
+    <input type="text" id="comparison1Value">
+  </div>
 
+  <div>
+    <label for="comparison2Value">Comparison 2 Value</label>
+    <input type="text" id="comparison2Value">
+  </div>
 
-		<div>
-			<input type="checkbox" id="comparison1" name="comparison1" class="btCheckbox" value=".workflowCode">
-			<label for="comparison1" class="btCheckboxLabel" id = "comparison1Label"> .workflowCode</label><br>
-			
-			<input type="checkbox" id="comparison2" name="comparison2" class="btCheckbox" value=".koCode">
-			<label for="comparison2" class="btCheckboxLabel" id = "comparison2Label"> .koCode</label><br>
-			
-			<input type="checkbox" id="comparison3" name="comparison3" class="btCheckbox" value=".rejectReason">
-			<label for="comparison3" class="btCheckboxLabel" id = "comparison3Label"> .rejectReason</label><br>
-		</div>
+  <div>
+    <label for="comparison3Value">Comparison 3 Value</label>
+    <input type="text" id="comparison3Value">
+  </div>
+  <hr>
+  <button type="button" id="createTestButton">Create Test</button>
 
-		<div>
-			<input class="enter" type="submit" value="Create Test" id="btCreateTestButton"/>
-		</div>
-	</form>
+  <script src="popup.js"></script>
+</body>
 
-	<script src="popup.js" type="module"></script>
-
-	</body>
 </html>
-
