@@ -108,52 +108,14 @@ function showSavedMessage() {
   }, 2000);
 }
 
-function insertAt(arr, index, element) {
-  // Negative values to determine position from the end of arr. -1 == one from end.
-  if (index < 0) {
-    index = arr.length + index + 1; // +1 to insert after the specified index
-  }
-
-  // Insert the element at the specified index
-  console.log("insertAt with index: " + index + " --> " + arr);
-  arr.splice(index, 0, element);
-  console.log("insertAt " + arr);
-  return arr
-}
-
 function updatePreview(clear = false) {
   const previewContainer = $('#previewContainer');
-  const relativePos = parseInt($('#relativePos').val() || "-1");
   // Clear existing preview
   previewContainer.empty();
 
-  const dbId = clear ? '' : $('#dbId').val() || '';
-  const numberOfParts = $('#numberOfParts').val();
-  let partValues = [];
+  const tableNames = generateTableNames(clear)
 
-  for (let i = 1; i <= numberOfParts; i++) {
-    let partValue = clear ? '' : $(`#partValue${i}`).val() || '';
-    if (partValue) {
-      partValues.push(partValue);
-    }
-  }
-
-  console.log(partValues);
-  console.log(relativePos);
-  partValues = insertAt(partValues, relativePos, 'PlAcEhOlDeR');
-  console.log(partValues);
-
-  const tableName = `${dbId}.${partValues.join('_')}`;
-
-  const inputTable = clear ? '' : $('#inputTable').val() || '';
-  const outputTable = clear ? '' : $('#outputTable').val() || '';
-  const referenceTable = clear ? '' : $('#referenceTable').val() || '';
-
-  const inputTableName = `${tableName}`.replace(/PlAcEhOlDeR/g, `${inputTable}`);
-  const outputTableName = `${tableName}`.replace(/PlAcEhOlDeR/g, `${outputTable}`);
-  const referenceTableName = `${tableName}`.replace(/PlAcEhOlDeR/g, `${referenceTable}`);
-
-  previewContainer.append(`<div>${inputTableName}</div>`);
-  previewContainer.append(`<div>${outputTableName}</div>`);
-  previewContainer.append(`<div>${referenceTableName}</div>`);
+  previewContainer.append(`<div>${tableNames.inputTableName}</div>`);
+  previewContainer.append(`<div>${tableNames.outputTableName}</div>`);
+  previewContainer.append(`<div>${tableNames.referenceTableName}</div>`);
 }
