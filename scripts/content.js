@@ -34,11 +34,10 @@ function fillTest(message) {
     console.log("Strategy Name:", strategyName);
 
     // Extract data from the extension popup
-    const tableNameSuffix = message.tableNameSuffix;
-    const owner = message.owner;
-    const system = message.system;
-    const creditPhase = message.creditPhase;
-    const suffixCheckBoxes = message.suffixCheckBoxes;
+    const inputTableName = message.inputTableName;
+    const outputTableName = message.outputTableName;
+    const referenceTableName = message.referenceTableName;
+    const suffixCheckBoxes = message.comparisons;
 
     // Get BT elements from test window
     const testNameInput = document.querySelector("#name"); 
@@ -46,7 +45,7 @@ function fillTest(message) {
     const tableOut = document.querySelector("#outputTable");
     const tableResult = document.querySelector("#referenceTable");
 
-    // Identify buttons on est window
+    // Identify buttons on test window
     let addSuffixButton = document.querySelector('[data-automation-id=add-suffix-button]');
     let saveTestButton = document.querySelector('[data-automation-id=save-button]');
 

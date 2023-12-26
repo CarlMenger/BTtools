@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("createTestButton")
     .addEventListener("click", function () {
-      createTest();
+      createTestDataMsg();
     });
 });
 
@@ -47,7 +47,7 @@ function loadSettings() {
 	$('#comparison3Value').val(loadValueFromLocalStorage('comparison3Value'));
 }
 
-function createTest() {
+function createTestDataMsg() {
   // Extract data from the popup
   const dbId = document.getElementById("dbId").value || "";
   const inputTable = document.getElementById("inputTable").value || "";
@@ -63,14 +63,13 @@ function createTest() {
   const comparison2Value = document.getElementById("comparison2Value").value || "";
   const comparison3Value = document.getElementById("comparison3Value").value || "";
 
+  const tableNames = generateTableNames(false);
   // Message data to be sent to content script
   const message = {
     action: "createTest",
-    dbId,
-    inputTable,
-    outputTable,
-    referenceTable,
-    relativePos,
+    'inputTableName': tableNames.inputTableName,
+    'outputTableName': tableNames.outputTableName,
+    'referenceTableName': tableNames.referenceTableName,
     comparisons: [
       { checked: comparison1, value: comparison1Value },
       { checked: comparison2, value: comparison2Value },
