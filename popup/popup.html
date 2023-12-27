@@ -18,27 +18,23 @@
 <body>
   <h1>Popup</h1>
 
+  <!-- Keeping same inputs as in options to share func to generate table names -->
   <div>
-    <label for="dbId">DB_id:</label>
-    <input type="text" id="dbId" name="dbId">
+    <input type="text" id="dbId" name="dbId" hidden>
+
+    <input type="text" id="inputTable" name="inputTable" hidden>
+
+    <input type="text" id="outputTable" name="outputTable" hidden>
+
+    <input type="text" id="referenceTable" name="referenceTable" hidden>
+
+    <input type="number" id="relativePos" name="relativePos" hidden>
+    
+    <input type="number" id="numberOfParts" name="numberOfParts" hidden>
   </div>
-  <hr>
-  <div>
-    <label for="inputTable">Input Table:</label>
-    <input type="text" id="inputTable" name="inputTable">
-  </div>
-  <div>
-    <label for="outputTable">Output Table:</label>
-    <input type="text" id="outputTable" name="outputTable">
-  </div>
-  <div>
-    <label for="referenceTable">Reference Table:</label>
-    <input type="text" id="referenceTable" name="referenceTable">
-  </div>
-  <div>
-    <label for="relativePos">Relative Position:</label>
-    <input type="number" id="relativePos" name="relativePos">
-  </div>
+  
+
+  <div id="partsContainer"></div>
   <hr>
   <div>
     <input type="checkbox" id="comparison1" name="comparison1">

@@ -9,13 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function loadValueFromLocalStorage(key, defaultValue = '') {
-	return localStorage.getItem(key) || defaultValue;
-  }
-  
-function loadBooleanFromLocalStorage(key, defaultValue = false) {
-	return localStorage.getItem(key) === 'true' || defaultValue;
-}
+
 
 function loadSettings() {
 	// Load saved settings or use defaults from localStorage
@@ -24,23 +18,34 @@ function loadSettings() {
 	console.log(loadBooleanFromLocalStorage('comparison2Checked'));
 	console.log(loadBooleanFromLocalStorage('comparison3Checked'));
 
-	$('#numberOfParts').val(loadValueFromLocalStorage('numberOfParts', '4'));
+	const numberOfParts = loadValueFromLocalStorage('numberOfParts', '4');
 	updatePartInputs();
+
+  // Load partsName and pre-fill corresponding partsValue
+  for (let i = 1; i <= numberOfParts; i++) {
+    const partsName = loadValueFromLocalStorage(`partName${i}`);
+    const partsValue = loadValueFromLocalStorage(`partValue${i}`);
+    
+    const partsInput = `
+      <div>
+        <label for="partValue${i}">${partsName}:</label>
+        <input type="text" id="partValue${i}" value="${partsValue}" readonly>
+      </div>
+    `;
+
+    $('#partsContainer').append(partsInput);
+  }
   
 	$('#dbId').val(loadValueFromLocalStorage('dbId'));
-  
 	$('#inputTable').val(loadValueFromLocalStorage('inputTable'));
 	$('#outputTable').val(loadValueFromLocalStorage('outputTable'));
 	$('#referenceTable').val(loadValueFromLocalStorage('referenceTable'));
 	$('#relativePos').val(loadValueFromLocalStorage('relativePos'));
-  
-	// $('#comparison1').prop('checked', loadBooleanFromLocalStorage('comparison1'));
-	// $('#comparison2').prop('checked', loadBooleanFromLocalStorage('comparison2'));
-	// $('#comparison3').prop('checked', loadBooleanFromLocalStorage('comparison3'));
+	$('#numberOfParts').val(loadValueFromLocalStorage('numberOfParts'));
 
 	$("#comparison1")[0].checked = loadBooleanFromLocalStorage('comparison1Checked');
-    $("#comparison2")[0].checked = loadBooleanFromLocalStorage('comparison2Checked');
-    $("#comparison3")[0].checked = loadBooleanFromLocalStorage('comparison3Checked');
+  $("#comparison2")[0].checked = loadBooleanFromLocalStorage('comparison2Checked');
+  $("#comparison3")[0].checked = loadBooleanFromLocalStorage('comparison3Checked');
 
 	$('#comparison1Value').val(loadValueFromLocalStorage('comparison1Value'));
 	$('#comparison2Value').val(loadValueFromLocalStorage('comparison2Value'));
@@ -48,12 +53,6 @@ function loadSettings() {
 }
 
 function createTestDataMsg() {
-  // Extract data from the popup
-  const dbId = document.getElementById("dbId").value || "";
-  const inputTable = document.getElementById("inputTable").value || "";
-  const outputTable = document.getElementById("outputTable").value || "";
-  const referenceTable = document.getElementById("referenceTable").value || "";
-  const relativePos = document.getElementById("relativePos").value || 0;
 
   const comparison1 = document.getElementById("comparison1").checked;
   const comparison2 = document.getElementById("comparison2").checked;
@@ -64,6 +63,7 @@ function createTestDataMsg() {
   const comparison3Value = document.getElementById("comparison3Value").value || "";
 
   const tableNames = generateTableNames(false);
+  console.log("table name: " + tableNames.inputTableName);
   // Message data to be sent to content script
   const message = {
     action: "createTest",

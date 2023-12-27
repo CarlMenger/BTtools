@@ -28,45 +28,37 @@ function fillTest(message) {
     let code = parseInt(url.href.match(/\d+/)[0]);
     let strategyName = getStrategyName(destination, code);
 
+    // TODO: Add sth to prevent duplicate name err
+    const testName = strategyName;
+
     console.log("Destination: " + destination);
     console.log("SidebarTab: " + sidebarTab);
     console.log("Code: " + code + typeof(code));
     console.log("Strategy Name:", strategyName);
 
-    // Extract data from the extension popup
-    const inputTableName = message.inputTableName;
-    const outputTableName = message.outputTableName;
-    const referenceTableName = message.referenceTableName;
+    // Get data from the extension popup. Destination is parsed from url and is available only at this stage.
+    // replace destination keyword in table name with actual variable
+    const inputTableName = message.inputTableName.replace(/destination/g, destination);
+    const outputTableName = message.outputTableName.replace(/destination/g, destination);
+    const referenceTableName = message.referenceTableName.replace(/destination/g, destination);
     const suffixCheckBoxes = message.comparisons;
-
-    // Get BT elements from test window
-    const testNameInput = document.querySelector("#name"); 
-    const tableVector = document.querySelector("#inputTable");
-    const tableOut = document.querySelector("#outputTable");
-    const tableResult = document.querySelector("#referenceTable");
 
     // Identify buttons on test window
     let addSuffixButton = document.querySelector('[data-automation-id=add-suffix-button]');
     let saveTestButton = document.querySelector('[data-automation-id=save-button]');
 
-    // Create table names
-    const testName = `${owner}_${system}_${creditPhase}_${tableNameSuffix}`;
-    const tableNameVector = `ap_uwi.${owner}_${system}_${destination}_${creditPhase}_vector_${tableNameSuffix}`;
-    const tableNameOut = `ap_uwi.${owner}_${system}_${destination}_${creditPhase}_out_${tableNameSuffix}`;
-    const tableNameResult = `ap_uwi.${owner}_${system}_${destination}_${creditPhase}_result_${tableNameSuffix}`;
-
     // ============================================ SET INPUTS ============================================
     // Set the text content of elements
     dispatchValueIntoElement(testNameInput, testName);
-    dispatchValueIntoElement(tableVector, tableNameVector);
-    if (sidebarTab == 'simulations') {dispatchValueIntoElement(tableOut, tableNameOut);}
-    else if (sidebarTab == 'master') {dispatchValueIntoElement(tableOut, tableNameResult);}
+    dispatchValueIntoElement(tableVector, inputTableName);
+    if (sidebarTab == 'simulations') {dispatchValueIntoElement(tableOut, outputTableName);}
+    else if (sidebarTab == 'master') {dispatchValueIntoElement(tableOut, referenceTableName);}
 
     
     if (sidebarTab == 'simulations') {
         // Click the "Add suffix" button the desired number of times
         for (let index = 0; index < suffixCheckBoxes.length; index++) {
-            if (addSuffixButton && suffixCheckBoxes[index]) {
+            if (addSuffixButton && suffixCheckBoxes[index].checked) {
                 dispatchClickToElement(addSuffixButton);
                 let suffingInput = document.querySelector(`[data-automation-id="suffix${index}"]`);
                 dispatchValueIntoElement(suffingInput, suffixCheckBoxes[index]);
@@ -76,7 +68,7 @@ function fillTest(message) {
         // Check the checkbox to allow comparison
         const allowResultTableComparison = document.querySelector('[data-automation-id="use-suffix-for-comparison"]');
         allowResultTableComparison.click();
-        dispatchValueIntoElement(tableResult, tableNameResult);
+        dispatchValueIntoElement(tableResult, referenceTableName);
     }
     // Click the "Save" button
     dispatchClickToElement(saveTestButton);
@@ -95,21 +87,6 @@ function dispatchClickToElement(inputElement) {
 }
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.action === "createTest") {
-
-        console.log("[Info] Received data from popup");
-
-        // // Get the destination from current URL
-        // var currentUrl = window.location.href;
-        // var url = new URL(currentUrl);
-        // var destination = url.href.includes("sk") ? "SK" : "CZ";
-        // console.log("Destination: " + destination);
-
-        // Extract data from the extension popup
-        // const tableNameSuffix = message.tableNameSuffix;
-        // const owner = message.owner;
-        // const system = message.system;
-        // const creditPhase = message.creditPhase;
-        // const suffixCheckBoxes = message.suffixCheckBoxes;
 
         const createTestButton = document.querySelector('[data-automation-id=create-test-button]');
         dispatchClickToElement(createTestButton);

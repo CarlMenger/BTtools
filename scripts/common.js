@@ -51,6 +51,14 @@ function insertAt(arr, index, value) {
   return result;
 }
 
+function loadValueFromLocalStorage(key, defaultValue = '') {
+	return localStorage.getItem(key) || defaultValue;
+  }
+  
+function loadBooleanFromLocalStorage(key, defaultValue = false) {
+	return localStorage.getItem(key) === 'true' || defaultValue;
+}
+
 function generateTableNames(clear) {
 
   const relativePos = parseInt($('#relativePos').val() || "-1");
