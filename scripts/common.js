@@ -73,6 +73,8 @@ function generateTableNames(clear) {
     }
   }
 
+  // Create test name as table name without db prefix part and vec/out/res.
+  const testName = partValues.join('_');
   partValues = insertAt(partValues, relativePos, 'PlAcEhOlDeR');
 
   const tableName = `${dbId}.${partValues.join('_')}`;
@@ -88,7 +90,8 @@ function generateTableNames(clear) {
   return {
     'inputTableName': inputTableName,
     'outputTableName': outputTableName,
-    'referenceTableName': referenceTableName
+    'referenceTableName': referenceTableName,
+    'tableName': testName
   }
 }
 

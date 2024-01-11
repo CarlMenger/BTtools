@@ -29,7 +29,7 @@ function loadSettings() {
     const partsInput = `
       <div>
         <label for="partValue${i}">${partsName}:</label>
-        <input type="text" id="partValue${i}" value="${partsValue}" readonly>
+        <input type="text" id="partValue${i}" value="${partsValue}" value>
       </div>
     `;
 
@@ -54,27 +54,39 @@ function loadSettings() {
 
 function createTestDataMsg() {
 
-  const comparison1 = document.getElementById("comparison1").checked;
-  const comparison2 = document.getElementById("comparison2").checked;
-  const comparison3 = document.getElementById("comparison3").checked;
+  let comparisonChecks = [
+    document.getElementById("comparison1").checked,
+    document.getElementById("comparison2").checked,
+    document.getElementById("comparison3").checked
+ ]
 
-  const comparison1Value = document.getElementById("comparison1Value").value || "";
-  const comparison2Value = document.getElementById("comparison2Value").value || "";
-  const comparison3Value = document.getElementById("comparison3Value").value || "";
+ let comparisonValues = [
+    document.getElementById("comparison1Value").value || "",
+    document.getElementById("comparison2Value").value || "",
+    document.getElementById("comparison3Value").value || "",
+ ]
 
+  let comparisons = [];
+  for (let i = 0; i <= Math.min(comparisonChecks.length,comparisonValues.length); i++) {
+    if (comparisonChecks[i] && comparisonValues[i]){
+      comparisons.push(comparisonValues[i])
+    }
+  }
+  console.log("comparisons: " + comparisons);
   const tableNames = generateTableNames(false);
-  console.log("table name: " + tableNames.inputTableName);
   // Message data to be sent to content script
   const message = {
     action: "createTest",
     'inputTableName': tableNames.inputTableName,
     'outputTableName': tableNames.outputTableName,
     'referenceTableName': tableNames.referenceTableName,
-    comparisons: [
-      { checked: comparison1, value: comparison1Value },
-      { checked: comparison2, value: comparison2Value },
-      { checked: comparison3, value: comparison3Value },
-    ],
+    'testName': tableNames.tableName,
+    // comparisons: [
+    //   { checked: comparison1, value: comparison1Value },
+    //   { checked: comparison2, value: comparison2Value },
+    //   { checked: comparison3, value: comparison3Value },
+    // ],
+    comparisons: comparisons
   };
 
   // Send the message to the content script

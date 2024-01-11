@@ -29,23 +29,35 @@ function fillTest(message) {
     let strategyName = getStrategyName(destination, code);
 
     // TODO: Add sth to prevent duplicate name err
-    const testName = strategyName;
+    const testName = message.testName;
 
     console.log("Destination: " + destination);
     console.log("SidebarTab: " + sidebarTab);
     console.log("Code: " + code + typeof(code));
     console.log("Strategy Name:", strategyName);
+    console.log("Test Name:", testName);
 
     // Get data from the extension popup. Destination is parsed from url and is available only at this stage.
     // replace destination keyword in table name with actual variable
     const inputTableName = message.inputTableName.replace(/destination/g, destination);
     const outputTableName = message.outputTableName.replace(/destination/g, destination);
     const referenceTableName = message.referenceTableName.replace(/destination/g, destination);
-    const suffixCheckBoxes = message.comparisons;
+    const comparisons = message.comparisons.filter(function (element) {
+        return element != "" & element !== null;
+      });
+    
+    console.log("comparisons: " + comparisons);
+    console.log("comparisons: " + comparisons[2]);
+    console.log("comparisons: " + typeof(comparisons[2]));
+    console.log("comparisons.len: " + comparisons.length);
 
     // Identify buttons on test window
     let addSuffixButton = document.querySelector('[data-automation-id=add-suffix-button]');
     let saveTestButton = document.querySelector('[data-automation-id=save-button]');
+    let testNameInput = document.querySelector("#name"); 
+    let tableVector = document.querySelector("#inputTable");
+    let tableOut = document.querySelector("#outputTable");
+    let tableResult = document.querySelector("#referenceTable");
 
     // ============================================ SET INPUTS ============================================
     // Set the text content of elements
@@ -57,11 +69,11 @@ function fillTest(message) {
     
     if (sidebarTab == 'simulations') {
         // Click the "Add suffix" button the desired number of times
-        for (let index = 0; index < suffixCheckBoxes.length; index++) {
-            if (addSuffixButton && suffixCheckBoxes[index].checked) {
+        for (let index = 0; index < comparisons.length; index++) {
+            if (addSuffixButton && comparisons) {
                 dispatchClickToElement(addSuffixButton);
                 let suffingInput = document.querySelector(`[data-automation-id="suffix${index}"]`);
-                dispatchValueIntoElement(suffingInput, suffixCheckBoxes[index]);
+                dispatchValueIntoElement(suffingInput, comparisons[index]);
             };
         }
 
