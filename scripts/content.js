@@ -29,7 +29,7 @@ function fillTest(message) {
     let strategyName = getStrategyName(destination, code);
 
     // TODO: Add sth to prevent duplicate name err
-    const testName = message.testName;
+    const testName = message.testName.replace(/destination/g, destination);
 
     console.log("Destination: " + destination);
     console.log("SidebarTab: " + sidebarTab);
