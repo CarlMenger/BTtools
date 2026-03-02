@@ -25,13 +25,15 @@
   },
   "permissions": ["storage", "scripting", "activeTab", "tabs"],
   "host_permissions": [
-        "*://blazetools-cz.cz.prod/*",
-        "*://blazetools-sk.cz.prod/*",
-        "*://blaze-tools-skprod.ingress.cz.prod/*",
-        "*://blaze-tools-czprod.ingress.cz.prod/*",
-        "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
-        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
-      ],
+    "*://blazetools-cz.cz.prod/*",
+    "*://blazetools-sk.cz.prod/*",
+    "*://blaze-tools-skprod.ingress.cz.prod/*",
+    "*://blaze-tools-czprod.ingress.cz.prod/*",
+    "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
+    "*://blaze-tools-skpreprod.ingress.cz.nonprod/*",
+    "*://*.dev.cs.infra/*",
+    "*://*.cs.infra/*"
+  ],
   "commands": {
     "_execute_action": {
       "suggested_key": {
@@ -41,14 +43,16 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["popup/popup.js", "scripts/jquery-3.6.3.js"],
+      "resources": ["popup/popup.js", "scripts/jquery-3.6.3.js", "scripts/scoring-console-deploy.js"],
       "matches": [
         "*://blazetools-cz.cz.prod/*",
         "*://blazetools-sk.cz.prod/*",
         "*://blaze-tools-skprod.ingress.cz.prod/*",
         "*://blaze-tools-czprod.ingress.cz.prod/*",
         "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
-        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
+        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*",
+        "*://*.dev.cs.infra/*",
+        "*://*.cs.infra/*"
       ],
       "extension_ids": []
     }
@@ -67,6 +71,13 @@
         "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
       ],
       "js": ["scripts/content.js"]
+    },
+    {
+      "matches": [
+        "*://*.dev.cs.infra/*",
+        "*://*.cs.infra/*"
+      ],
+      "js": ["scripts/scoring-console-deploy.js"]
     }
   ],
   "background": {
