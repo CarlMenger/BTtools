@@ -14,10 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadSettings() {
 	// Load saved settings or use defaults from localStorage
 
-	console.log(loadBooleanFromLocalStorage('comparison1Checked'));
-	console.log(loadBooleanFromLocalStorage('comparison2Checked'));
-	console.log(loadBooleanFromLocalStorage('comparison3Checked'));
-
 	const numberOfParts = loadValueFromLocalStorage('numberOfParts', '4');
 	updatePartInputs();
 
@@ -72,7 +68,7 @@ function createTestDataMsg() {
       comparisons.push(comparisonValues[i])
     }
   }
-  console.log("comparisons: " + comparisons);
+  
   const tableNames = generateTableNames(false);
   // Message data to be sent to content script
   const message = {

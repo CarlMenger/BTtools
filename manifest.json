@@ -3,7 +3,7 @@
   "description": "We have to do our own development 'round here",
   "manifest_version": 3,
   "author": "Martin Both",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "icons": {
     "16": "images/gearWheel-16.png",
     "32": "images/gearWheel-32.png",
@@ -24,7 +24,14 @@
     "open_in_tab": false
   },
   "permissions": ["storage", "scripting", "activeTab", "tabs"],
-  "host_permissions": ["*://*.blazetools-cz.cz.prod/*"],
+  "host_permissions": [
+        "*://blazetools-cz.cz.prod/*",
+        "*://blazetools-sk.cz.prod/*",
+        "*://blaze-tools-skprod.ingress.cz.prod/*",
+        "*://blaze-tools-czprod.ingress.cz.prod/*",
+        "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
+        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
+      ],
   "commands": {
     "_execute_action": {
       "suggested_key": {
@@ -36,8 +43,12 @@
     {
       "resources": ["popup/popup.js", "scripts/jquery-3.6.3.js"],
       "matches": [
-        "*://*.blazetools-cz.cz.prod/*",
-        "*://*.blazetools-sk.cz.prod/*"
+        "*://blazetools-cz.cz.prod/*",
+        "*://blazetools-sk.cz.prod/*",
+        "*://blaze-tools-skprod.ingress.cz.prod/*",
+        "*://blaze-tools-czprod.ingress.cz.prod/*",
+        "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
+        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
       ],
       "extension_ids": []
     }
@@ -48,8 +59,12 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.blazetools-cz.cz.prod/*",
-        "*://*.blazetools-sk.cz.prod/*"
+        "*://blazetools-cz.cz.prod/*",
+        "*://blazetools-sk.cz.prod/*",
+        "*://blaze-tools-skprod.ingress.cz.prod/*",
+        "*://blaze-tools-czprod.ingress.cz.prod/*",
+        "*://blaze-tools-czpreprod.ingress.cz.nonprod/*",
+        "*://blaze-tools-skpreprod.ingress.cz.nonprod/*"
       ],
       "js": ["scripts/content.js"]
     }

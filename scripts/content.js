@@ -31,12 +31,6 @@ function fillTest(message) {
     // TODO: Add sth to prevent duplicate name err
     const testName = message.testName.replace(/destination/g, destination);
 
-    console.log("Destination: " + destination);
-    console.log("SidebarTab: " + sidebarTab);
-    console.log("Code: " + code + typeof(code));
-    console.log("Strategy Name:", strategyName);
-    console.log("Test Name:", testName);
-
     // Get data from the extension popup. Destination is parsed from url and is available only at this stage.
     // replace destination keyword in table name with actual variable
     const inputTableName = message.inputTableName.replace(/destination/g, destination);
@@ -45,11 +39,6 @@ function fillTest(message) {
     const comparisons = message.comparisons.filter(function (element) {
         return element != "" & element !== null;
       });
-    
-    console.log("comparisons: " + comparisons);
-    console.log("comparisons: " + comparisons[2]);
-    console.log("comparisons: " + typeof(comparisons[2]));
-    console.log("comparisons.len: " + comparisons.length);
 
     // Identify buttons on test window
     let addSuffixButton = document.querySelector('[data-automation-id=add-suffix-button]');
